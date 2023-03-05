@@ -4,24 +4,26 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func main(){
   var fileName = os.Args[1]
+  var fileNameReplace = strings.Replace(fileName, ".c", "", 1)
   
   //compile file
-  compile := exec.Command("/usr/bin/gcc", fileName, "-o", "output")
+  compile := exec.Command("/usr/bin/gcc", fileName, "-o", fileNameReplace)
   _, err := compile.Output()
   if err != nil {
-    fmt.Println(err.Error())
+    fmt.Println("file not found", err.Error())
     return
   }
 
   //run file
-  run := exec.Command("./output")
+  run := exec.Command(strings.Join([]string{"./", fileNameReplace}, ""))
   stout, err2 := run.Output()
   if err2 != nil {
-    fmt.Println(err2.Error())
+    fmt.Println("compile error", err2.Error())
     return
   }
   fmt.Println(string(stout))
@@ -30,11 +32,11 @@ func main(){
   if len(os.Args) > 2 && os.Args[2] == "-d" {
     return
   }
-
-  err3 := os.Remove("output")
+  
+  err3 := os.Remove(fileNameReplace)
   if err3 != nil {
-    fmt.Println(err3.Error())
-     return
+    fmt.Println("delete file error", err3.Error())
+    return
   }
 }    
 
