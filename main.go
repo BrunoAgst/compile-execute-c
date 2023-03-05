@@ -27,10 +27,14 @@ func main(){
   fmt.Println(string(stout))
   
   //delete file
+  if len(os.Args) > 2 && os.Args[2] == "-d" {
+    return
+  }
+
   err3 := os.Remove("output")
   if err3 != nil {
     fmt.Println(err3.Error())
-    return
+     return
   }
 }    
 
