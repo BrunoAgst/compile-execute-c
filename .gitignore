@@ -1,2 +1,5 @@
 *.c
 compile-execute-c
+.idea
+*.asm
+*.bin
