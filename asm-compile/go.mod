@@ -1,3 +1,3 @@
-module BrunoAgst/asm-compile
+module BrunoAgst/asmcompile
 
 go 1.22
