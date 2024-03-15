@@ -23,7 +23,6 @@ func main() {
 
 	qemuCommand := fmt.Sprintf("file=%s,format=raw,index=0,if=floppy", bin)
 
-	cmdQemu := exec.Command("/opt/homebrew/bin/qemu-system-i386", "-drive", qemuCommand)
+	exec.Command("/opt/homebrew/bin/qemu-system-i386", "-drive", qemuCommand).Start()
 
-	cmdQemu.Start()
 }
